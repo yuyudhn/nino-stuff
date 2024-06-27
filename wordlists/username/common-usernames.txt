@@ -1,0 +1,17 @@
+admin
+admin1
+administrator
+root
+user
+user1
+testing
+test1
+system
+test
+operator
+super
+qa
+guest
+manager
+role1
+role2
