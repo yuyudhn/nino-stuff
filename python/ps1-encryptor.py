@@ -1,3 +1,5 @@
+#! /usr/bin/env python3
+# Powershell script encryptor using XOR.
 import base64
 import argparse
 
@@ -19,8 +21,28 @@ def main():
     encrypted_data = xor_encrypt(data, args.key)
     encoded_data = base64.b64encode(encrypted_data.encode('utf-16le')).decode('utf-8')
 
+    powershell_template = f'''
+function difarina {{
+    param (
+        [string]$data,
+        [string]$key
+    )
+    $indra = ""
+    for ($i = 0; $i -lt $data.Length; $i++) {{
+        $indra += [char]($data[$i] -bxor $key[$i % $key.Length])
+    }}
+    return $indra
+}}
+
+$adella = "{encoded_data}"
+$encryptedScript = [System.Text.Encoding]::Unicode.GetString([Convert]::FromBase64String($adella))
+$key = "{args.key}"
+$indraa = difarina -data $encryptedScript -key $key
+Invoke-Expression $indraa
+'''
+
     with open(args.output, 'w') as file:
-        file.write(encoded_data)
+        file.write(powershell_template.strip())
 
     print(f'Encrypted script written to {args.output}')
 
