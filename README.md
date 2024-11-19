@@ -1,25 +1,4 @@
 # nino-stuff
 Script Collection for Pentesting
 
-```bash
-➜  nino-stuff git:(main) tree .
-.
-├── bash
-│   ├── ping-sweep.sh
-│   ├── port-scan-nc.sh
-│   └── port-scan.sh
-├── powershell
-│   ├── mde-enum.ps1
-│   └── reverse-shell.ps1
-├── python
-│   ├── ps1-encryptor.py
-│   └── smtp-tester.py
-├── README.md
-└── wordlists
-    ├── dns
-    │   └── non-prod-subdomain.txt
-    └── username
-        └── common-usernames.txt
-
-7 directories, 10 files
-```
+![Nakano Nino](https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEi9jvtFlWa1XYIqjiTuGtVpsuO5qVlXROtL7fTVgs9LPbS8ffePSju60j090-WJF9d6ypcR_XCG83x4ar_F3gOslr9quFUkDjBzwoRfRCBXgbAwFLPLOiwKQEwNCjpJhFZoc1l4dOvLCPQ-sOKAfoWfMnFZ1fTHdVPzVQGLayfcvT7B0XJp35dXdFp__YU/s1280/nino.jpg)
